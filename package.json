@@ -1,0 +1,29 @@
+{
+  "name": "starter",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Ferperemero86/Natours-api#readme",
+  "bugs": {
+    "url": "https://github.com/Ferperemero86/Natours-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ferperemero86/Natours-api.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "stream.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.27.0",
+    "eslint-config-prettier": "^10.1.5",
+    "prettier": "^3.5.3"
+  }
+}

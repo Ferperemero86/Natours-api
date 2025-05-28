@@ -28,9 +28,7 @@ async function getToursFilePath() {
   }
 }
 
-// GET /api/v1/tours
-// Return json file tours-simple.json {results: tours.length, data: {tours: []}}
-app.get("/api/v1/tours", async (req, res) => {
+async function getTours(req, res) {
   try {
     const tours = await getToursFilePath();
     console.log("tours:", tours, filePath);
@@ -46,11 +44,9 @@ app.get("/api/v1/tours", async (req, res) => {
       message: "Could not retrieve tours data",
     });
   }
-});
+}
 
-// Add GET route for a specific tour
-// GET /api/v1/tours/:id
-app.get("/api/v1/tours/:id", async (req, res) => {
+async function getTour(req, res) {
   const tours = await getToursFilePath();
   const { id } = req.params;
 
@@ -67,12 +63,9 @@ app.get("/api/v1/tours/:id", async (req, res) => {
       tour,
     },
   });
-});
+}
 
-// POST tours /api/v1/tours
-// Create new Tour
-
-app.post("/api/v1/tours", async (req, res) => {
+async function createTour(req, res) {
   try {
     const tours = await getToursFilePath();
     const newTour = req.body;
@@ -107,11 +100,9 @@ app.post("/api/v1/tours", async (req, res) => {
       message: "Could not create new tour",
     });
   }
-});
+}
 
-// PATCH top update properties of the object only
-// PATCH /api/v1/tours/:id
-app.patch("/api/v1/tours/:id", async (req, res) => {
+async function updateTour(req, res) {
   try {
     const tours = await getToursFilePath();
     const { id } = req.params;
@@ -145,10 +136,9 @@ app.patch("/api/v1/tours/:id", async (req, res) => {
       error: error.message,
     });
   }
-});
+}
 
-// DELETE /api/v1/tours/:id
-app.delete("/api/v1/tours/:id", async (req, res) => {
+async function deleteTour(req, res) {
   try {
     const tours = await getToursFilePath();
     const { id } = req.params;
@@ -174,7 +164,26 @@ app.delete("/api/v1/tours/:id", async (req, res) => {
       message: "Could not delete tour",
     });
   }
-});
+}
+
+// GET /api/v1/tours
+// Return json file tours-simple.json {results: tours.length, data: {tours: []}}
+app.get("/api/v1/tours", getTours);
+
+// Add GET route for a specific tour
+// GET /api/v1/tours/:id
+app.get("/api/v1/tours/:id", getTour);
+
+// POST tours /api/v1/tours
+// Create new Tour
+app.post("/api/v1/tours", createTour);
+
+// PATCH top update properties of the object only
+// PATCH /api/v1/tours/:id
+app.patch("/api/v1/tours/:id", updateTour);
+
+// DELETE /api/v1/tours/:id
+app.delete("/api/v1/tours/:id", deleteTour);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

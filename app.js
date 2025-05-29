@@ -173,24 +173,48 @@ async function deleteTour(req, res) {
   }
 }
 
-// GET /api/v1/tours
-// Return json file tours-simple.json {results: tours.length, data: {tours: []}}
-app.get("/api/v1/tours", getTours);
+async function getUsers(req, res) {
+  res.status(500).json({
+    message: "This route is not yet defined",
+  });
+}
 
-// Add GET route for a specific tour
-// GET /api/v1/tours/:id
-app.get("/api/v1/tours/:id", getTour);
+async function createUser(req, res) {
+  res.status(500).json({
+    message: "This route is not yet defined",
+  });
+}
+async function getUser(req, res) {
+  res.status(500).json({
+    message: "This route is not yet defined",
+  });
+}
+async function updateUser(req, res) {
+  res.status(500).json({
+    message: "This route is not yet defined",
+  });
+}
+async function deleteUser(req, res) {
+  res.status(500).json({
+    message: "This route is not yet defined",
+  });
+}
 
-// POST tours /api/v1/tours
-// Create new Tour
-app.post("/api/v1/tours", createTour);
+app.route("/api/v1/tours").get(getTours).post(createTour);
 
-// PATCH top update properties of the object only
-// PATCH /api/v1/tours/:id
-app.patch("/api/v1/tours/:id", updateTour);
+app
+  .route("/api/v1/tours/:id")
+  .get(getTour)
+  .patch(updateTour)
+  .delete(deleteTour);
 
-// DELETE /api/v1/tours/:id
-app.delete("/api/v1/tours/:id", deleteTour);
+app.route("/api/v1/users").get(getUsers).post(createUser);
+
+app
+  .route("/api/v1/tours/:id")
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

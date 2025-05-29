@@ -1,16 +1,24 @@
 import express from "express";
-import { readFile, writeFile } from "fs/promises";
+import morgan from "morgan";
 import path from "path";
+
+import { readFile, writeFile } from "fs/promises";
+import { createWriteStream } from "fs";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const accessLogStream = createWriteStream(path.join(__dirname, "access.log"), {
+  flags: "a",
+});
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const filePath = `${__dirname}/dev-data/data/tours-simple.json`;
 
+app.use(morgan("combined", { stream: accessLogStream }));
 app.use(express.json());
 
 async function getToursFilePath() {
@@ -31,7 +39,7 @@ async function getToursFilePath() {
 async function getTours(req, res) {
   try {
     const tours = await getToursFilePath();
-    console.log("tours:", tours, filePath);
+
     res.status(200).json({
       results: tours.length,
       data: {
@@ -39,7 +47,6 @@ async function getTours(req, res) {
       },
     });
   } catch (error) {
-    console.log("Error reading tours data:", error);
     res.status(500).json({
       message: "Could not retrieve tours data",
     });

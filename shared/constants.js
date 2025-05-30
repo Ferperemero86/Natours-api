@@ -1,3 +1,1 @@
-export function findItemIndex(array, id) {
-  return array.findIndex((item) => item.id === id);
-}
+export const PORT = process.env.PORT || 3000;

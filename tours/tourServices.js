@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const filePath = path.join(__dirname, `/../dev-data/data/tours-simple.json`);
 
-import { findItemIndex } from "../shared/constants.js";
+import { findItemIndex } from "../shared/utils.js";
 
 async function getFilePath() {
   try {

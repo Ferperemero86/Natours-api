@@ -8,6 +8,8 @@ const __dirname = path.dirname(__filename);
 
 const filePath = path.join(__dirname, `/../dev-data/data/tours-simple.json`);
 
+import { findItemIndex } from "../shared/constants.js";
+
 async function getFilePath() {
   try {
     const tours = await readFile(filePath, "utf-8");
@@ -36,9 +38,13 @@ export async function getOne(id) {
   try {
     const tours = await getFilePath();
 
-    return tours.find((tour) => tour.id === parseInt(id, 10));
-  } catch (error) {
-    throw new Error(`${error} Could not retrieve tour data`);
+    const tour = findItemIndex(tours, parseInt(id, 10));
+    if (tour === -1) {
+      throw new Error(`Tour with id ${id} not found`);
+    }
+    return tours[tour];
+  } catch {
+    throw new Error(`Could not retrieve tour data`);
   }
 }
 
@@ -63,7 +69,7 @@ export async function updateOne(id, newTourData) {
   try {
     const tours = await getFilePath();
 
-    const tourIndex = tours.findIndex((tour) => tour.id === parseInt(id, 10));
+    const tourIndex = findItemIndex(tours, parseInt(id, 10));
 
     if (tourIndex === -1) {
       throw new Error(`Could not find tour`);
@@ -86,9 +92,9 @@ export async function deleteOne(id) {
   try {
     const tours = await getFilePath();
 
-    const tourIndex = tours.findIndex((tour) => tour.id === parseInt(id, 10));
+    const tourIndex = findItemIndex(tours, parseInt(id, 10));
 
-    if (!tourIndex) {
+    if (tourIndex === -1) {
       throw new Error(`Could not find tour`);
     }
 

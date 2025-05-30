@@ -44,9 +44,9 @@ export async function getTour(req, res) {
         tour,
       },
     });
-  } catch (error) {
+  } catch {
     res.status(500).json({
-      message: `${error} Could not retrieve tour data`,
+      message: `Could not retrieve tour data`,
     });
   }
 }

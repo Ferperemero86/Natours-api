@@ -4,7 +4,7 @@ import {
   createOne,
   updateOne,
   deleteOne,
-} from "./toursServices.js";
+} from "./tourServices.js";
 
 export async function getTours(req, res) {
   try {

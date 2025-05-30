@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import { router as tourRoutes } from "../tours/toursRoutes.js";
-import { router as userRoutes } from "../users/usersRoutes.js";
+import { router as tourRoutes } from "../tours/tourRoutes.js";
+import { router as userRoutes } from "../users/userRoutes.js";
 
 const router = Router();
 

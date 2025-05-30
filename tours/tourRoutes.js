@@ -6,7 +6,7 @@ import {
   createTour,
   updateTour,
   deleteTour,
-} from "./toursControllers.js";
+} from "./tourControllers.js";
 
 const router = Router();
 

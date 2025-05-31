@@ -11,12 +11,17 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Morgan logiing setup
+// Morgan loging setup
 const accessLogStream = createWriteStream(path.join(__dirname, "access.log"), {
   flags: "a",
 });
 
-app.use(morgan("combined", { stream: accessLogStream }));
+if (process.env.NODE_ENV === "development") {
+  console.log("Running in development mode");
+  app.use(morgan("dev"));
+  app.use(morgan("combined", { stream: accessLogStream }));
+}
+
 app.use(express.json());
 
 app.use("/api/v1", router);

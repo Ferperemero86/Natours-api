@@ -1,17 +1,11 @@
-import { Router } from "express";
+import { Router } from 'express'
 
-import {
-  getUsers,
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser,
-} from "./userControllers.js";
+import { getUsers, getUser, createUser, updateUser, deleteUser } from './userControllers.js'
 
-const router = Router();
+const router = Router()
 
-router.route("/").get(getUsers).post(createUser);
+router.route('/').get(getUsers).post(createUser)
 
-router.route("/:id").get(getUser).patch(updateUser).delete(deleteUser);
+router.route('/:id').get(getUser).patch(updateUser).delete(deleteUser)
 
-export { router };
+export { router }

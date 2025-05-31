@@ -1,24 +1,33 @@
-import eslintPluginPrettier from "eslint-plugin-prettier";
+import eslintPluginPrettier from 'eslint-plugin-prettier'
 
 export default [
   {
-    files: ["**/*.js", "**/*.ts"],
+    files: ['**/*.js', '**/*.ts'],
     languageOptions: {
       ecmaVersion: 2021,
-      sourceType: "module",
+      sourceType: 'module',
       globals: {
-        console: "readonly",
-        module: "readonly",
-        require: "readonly",
+        console: 'readonly',
+        module: 'readonly',
+        require: 'readonly',
       },
     },
     plugins: {
       prettier: eslintPluginPrettier,
     },
     rules: {
-      "prettier/prettier": "error",
-      "no-unused-vars": "warn",
-      "no-console": "off",
+      'no-unused-vars': 'warn',
+      'no-console': 'off',
+      'prettier/prettier': [
+        'error',
+        {
+          semi: false,
+          singleQuote: true,
+          trailingComma: 'es5',
+          printWidth: 80,
+          tabWidth: 2,
+        },
+      ],
     },
   },
-];
+]

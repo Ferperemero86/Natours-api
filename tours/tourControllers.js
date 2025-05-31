@@ -1,19 +1,13 @@
-import {
-  getAll,
-  getOne,
-  createOne,
-  updateOne,
-  deleteOne,
-} from "./tourServices.js";
+import { getAll, getOne, createOne, updateOne, deleteOne } from './tourServices.js'
 
 export async function getTours(req, res) {
   try {
-    const tours = await getAll();
+    const tours = await getAll()
 
     if (!tours || tours.length === 0) {
       return res.status(404).json({
-        message: "No tours found",
-      });
+        message: 'No tours found',
+      })
     }
 
     res.status(200).json({
@@ -21,93 +15,93 @@ export async function getTours(req, res) {
       data: {
         tours,
       },
-    });
+    })
   } catch (error) {
     res.status(500).json({
       message: `${error} Could not retrieve tours data`,
-    });
+    })
   }
 }
 
 export async function getTour(req, res) {
   try {
-    const { id } = req.params;
-    const tour = await getOne(id);
+    const { id } = req.params
+    const tour = await getOne(id)
 
     if (!tour) {
       return res.status(404).json({
-        message: "Tour not found",
-      });
+        message: 'Tour not found',
+      })
     }
     res.status(200).json({
       data: {
         tour,
       },
-    });
+    })
   } catch {
     res.status(500).json({
       message: `Could not retrieve tour data`,
-    });
+    })
   }
 }
 
 export async function createTour(req, res) {
   try {
-    const newTour = req.body;
+    const newTour = req.body
 
     if (!newTour) {
       return res.status(403).json({
-        message: "Please fill in all the fields",
-      });
+        message: 'Please fill in all the fields',
+      })
     }
 
-    const newTourData = await createOne(newTour);
+    const newTourData = await createOne(newTour)
 
     res.status(201).json({
       data: {
         tour: newTourData,
       },
-    });
+    })
   } catch (error) {
     return res.status(500).json({
       message: `${error} Could not create new tour`,
-    });
+    })
   }
 }
 
 export async function updateTour(req, res) {
   try {
-    const { id } = req.params;
-    const newTourData = req.body;
+    const { id } = req.params
+    const newTourData = req.body
 
-    const updatedTour = await updateOne(id, newTourData);
+    const updatedTour = await updateOne(id, newTourData)
 
     res.status(200).json({
-      message: "Tour updated successfully",
+      message: 'Tour updated successfully',
       data: {
         tour: updatedTour,
       },
-    });
+    })
   } catch (error) {
     res.status(500).json({
-      message: "Could not update tour",
+      message: 'Could not update tour',
       error: error.message,
-    });
+    })
   }
 }
 
 export async function deleteTour(req, res) {
   try {
-    const { id } = req.params;
+    const { id } = req.params
 
-    await deleteOne(id);
+    await deleteOne(id)
 
     res.status(204).json({
-      message: "Tour deleted successfully",
-    });
+      message: 'Tour deleted successfully',
+    })
   } catch {
     return res.status(500).json({
-      message: "Could not delete tour",
-    });
+      message: 'Could not delete tour',
+    })
   }
 }
